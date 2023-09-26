@@ -11,8 +11,8 @@ export class ToDoEntity {
     @Column()
     points: number;
 
-    @Column()
-    time: string;
+    @Column({ type: 'timestamptz' })
+    time: Date;
 
     @Column( { default: false } )
     isDone: boolean;

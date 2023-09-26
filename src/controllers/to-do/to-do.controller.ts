@@ -10,7 +10,7 @@ export class ToDoController {
 
     @Post() 
     async createToDoTask(@Body() createToDoDto: ToDoDto) : Promise<string> {
-        return this.toDoService.create(createToDoDto);;
+        return this.toDoService.create(createToDoDto);
     }
 
 

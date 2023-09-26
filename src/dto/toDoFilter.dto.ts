@@ -1,23 +1,23 @@
 
 import { Expose } from 'class-transformer';
-import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString , IsDate} from 'class-validator';
+import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class ToDoDto {
+export class ToDoFilterDto {
   @Expose()
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   public task: string;
 
 
   @Expose()
   @IsNumber()
-  @IsNotEmpty()
+  @IsOptional()
   public points: number;
 
 
   @Expose()
   @IsDate()
-  @IsNotEmpty()
+  @IsOptional()
   public time: Date;
 
 
