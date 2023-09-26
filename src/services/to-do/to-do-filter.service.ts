@@ -1,6 +1,6 @@
 import { Injectable , NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LessThanOrEqual, Repository } from 'typeorm';
+import { ILike, LessThanOrEqual, Like, Repository } from 'typeorm';
 import { ToDoEntity } from '../../entity/toDo.entity';
 import { ToDoDto } from '../../dto/toDo.dto';
 import { ToDoFilterDto } from 'src/dto/toDoFilter.dto';
@@ -28,6 +28,10 @@ export class ToDoFilterService {
 
         if(toDoFilterDto && toDoFilterDto.isDone){
             filterCriterias["isDone"] = toDoFilterDto.isDone;
+        }
+
+        if(toDoFilterDto && toDoFilterDto.task){
+            filterCriterias["task"] = ILike(`%${toDoFilterDto.task}%`)
         }
 
         const filteredData: ToDoEntity[] = await this.toDoRepository.find( { 
