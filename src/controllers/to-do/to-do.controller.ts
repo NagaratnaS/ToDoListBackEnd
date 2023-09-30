@@ -1,6 +1,5 @@
 import { Controller , Post , Delete , Put , Body , Param , Get, Query } from '@nestjs/common';
 import { ToDoDto } from '../../dto/toDo.dto';
-import { ToDoEntity } from '../../entity/toDo.entity';
 import { ToDoService } from '../../services/to-do/to-do.service';
 
 @Controller('/to-do')
@@ -14,13 +13,31 @@ export class ToDoController {
     }
 
 
+    @Post('/bulk-add')
+    async createToDoTasks(@Body() createToDoDtos: ToDoDto[]) : Promise<string> {
+        createToDoDtos.forEach( (ele) => {
+            this.toDoService.create(ele);
+        } )
+        return "All Tasks Are Saved Successfully!!!";
+    }
+
+
+    @Delete('/bulk-delete')
+    async deleteToDoTasks(@Body() ids: number[]): Promise<string> {
+        ids.forEach( (ele) => {
+            this.toDoService.delete(ele);
+        } )
+        return "All Tasks are deleted Successfully!!!";
+    }
+
+
     @Delete(':id')
     async delete(@Param('id') id: number): Promise<string> {
         return this.toDoService.delete(id);
     }
 
 
-    
+
     @Get('/getAllData')
     async getAllData(@Query() isDone: string): Promise<ToDoDto[]>{
         return this.toDoService.getAllData(isDone['isDone'] == 'true');
